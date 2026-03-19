@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مجسم | Mujassam3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #111111;
+      --border:    #222222;
+      --accent:    #ff6b00;
+      --accent2:   #ff9a3c;
+      --text:      #f0ece4;
+      --muted:     #666666;
+      --card-bg:   #161616;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Background grid ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,107,0,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,107,0,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Ambient glow ── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,107,0,.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      gap: 0;
+    }
+
+    /* ── Logo mark ── */
+    .logo-wrap {
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(-16px);
+      animation: fadeUp .6s ease forwards;
+    }
+
+    .logo-mark {
+      width: 72px;
+      height: 72px;
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-mark::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,107,0,.15), transparent 60%);
+    }
+
+    .logo-mark svg {
+      width: 40px;
+      height: 40px;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── Name & tagline ── */
+    .name {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(22px, 5vw, 30px);
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-12px);
+      animation: fadeUp .6s .1s ease forwards;
+    }
+
+    .name span {
+      color: var(--accent);
+    }
+
+    .tagline {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: .08em;
+      text-align: center;
+      direction: rtl;
+      opacity: 0;
+      animation: fadeUp .6s .2s ease forwards;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 28px 0;
+      opacity: 0;
+      animation: fadeUp .6s .3s ease forwards;
+    }
+
+    /* ── Link cards ── */
+    .links {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, transform .2s, box-shadow .25s;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .link-card:nth-child(1) { animation: fadeUp .5s .4s ease forwards; }
+    .link-card:nth-child(2) { animation: fadeUp .5s .5s ease forwards; }
+    .link-card:nth-child(3) { animation: fadeUp .5s .6s ease forwards; }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,107,0,.06), transparent 60%);
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .link-card:hover {
+      border-color: rgba(255,107,0,.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255,107,0,.12);
+    }
+
+    .link-card:hover::before { opacity: 1; }
+
+    .link-card:active { transform: scale(.98); }
+
+    .icon-wrap {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255,107,0,.1);
+      border: 1px solid rgba(255,107,0,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-wrap svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .link-text {
+      flex: 1;
+    }
+
+    .link-label {
+      font-size: 15px;
+      font-weight: 700;
+      display: block;
+      direction: rtl;
+    }
+
+    .link-sub {
+      font-size: 12px;
+      color: var(--muted);
+      direction: ltr;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .arrow {
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: color .2s, transform .2s;
+      font-size: 18px;
+    }
+
+    /* arrow flipped for RTL */
+    .link-card:hover .arrow {
+      color: var(--accent);
+      transform: translateX(-4px);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 40px;
+      font-size: 11px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: .06em;
+      opacity: 0;
+      animation: fadeUp .6s .8s ease forwards;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      .page { padding: 40px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <div class="logo-mark">
+        <!-- Cube icon -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Name -->
+    <h1 class="name">MUJASSAM<span>3D</span></h1>
+    <p class="tagline">طباعة ثلاثية الأبعاد · تصاميم مخصصة</p>
+
+    <div class="divider"></div>
+
+    <!-- Links -->
+    <nav class="links">
+
+      <a href="https://mujassam3d.sa" target="_blank" rel="noopener" class="link-card">
+        <div class="icon-wrap">
+          <!-- Store bag icon -->
+          <svg viewBox="0 0 24 24">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">المتجر الإلكتروني</span>
+          <span class="link-sub">mujassam3d.sa</span>
+        </div>
+        <span class="arrow">←</span>
+      </a>
+
+    </nav>
+
+    <footer class="footer">مجسم · 3D PRINT · KSA</footer>
+
+  </main>
+</body>
+</html>
