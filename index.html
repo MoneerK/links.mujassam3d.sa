@@ -23,15 +23,21 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
+    html {
       height: 100%;
       background: var(--bg);
       color: var(--text);
       font-family: 'Tajawal', sans-serif;
+    }
+
+    body {
+      min-height: 100%;
+      min-height: 100dvh;
+      background: var(--bg);
       overflow-x: hidden;
     }
 
-    /* ── Brushed-metal texture ── */
+    /* ── Brushed-metal grid ── */
     body::before {
       content: '';
       position: fixed;
@@ -51,35 +57,38 @@
       top: -10%;
       left: 50%;
       transform: translateX(-50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(201,149,44,.10) 0%, rgba(201,149,44,.04) 35%, transparent 70%);
+      width: 90vw;
+      max-width: 700px;
+      height: 60vh;
+      background: radial-gradient(ellipse, rgba(201,149,44,.10) 0%, rgba(201,149,44,.03) 40%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
 
+    /* ── Page layout: fill viewport, spread content ── */
     .page {
       position: relative;
       z-index: 1;
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 48px 24px;
+      padding: 10vw 6vw 8vw;
       gap: 0;
     }
 
     /* ── Logo ── */
     .logo-wrap {
-      margin-bottom: 32px;
+      margin-bottom: 6vw;
       opacity: 0;
       transform: translateY(-20px) scale(0.95);
       animation: fadeUp .7s ease forwards;
     }
 
     .logo-img {
-      width: 160px;
+      width: clamp(120px, 36vw, 180px);
       height: auto;
       border-radius: 20px;
       filter: drop-shadow(0 4px 24px rgba(201,149,44,.25));
@@ -90,10 +99,10 @@
       filter: drop-shadow(0 8px 40px rgba(201,149,44,.4));
     }
 
-    /* ── Name & tagline ── */
+    /* ── Name & taglines ── */
     .name {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(26px, 6vw, 38px);
+      font-size: clamp(32px, 8vw, 44px);
       font-weight: 900;
       letter-spacing: .04em;
       text-align: center;
@@ -109,10 +118,10 @@
     .tagline-en {
       margin-top: 6px;
       font-family: 'Space Mono', monospace;
-      font-size: 12px;
+      font-size: clamp(11px, 2.8vw, 14px);
       font-weight: 400;
       color: var(--muted);
-      letter-spacing: .25em;
+      letter-spacing: .22em;
       text-transform: uppercase;
       text-align: center;
       direction: ltr;
@@ -121,11 +130,11 @@
     }
 
     .tagline-ar {
-      margin-top: 10px;
-      font-size: 15px;
+      margin-top: 8px;
+      font-size: clamp(14px, 3.8vw, 17px);
       font-weight: 300;
       color: var(--muted);
-      letter-spacing: .06em;
+      letter-spacing: .04em;
       text-align: center;
       direction: rtl;
       opacity: 0;
@@ -137,7 +146,7 @@
       width: 48px;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      margin: 32px 0;
+      margin: clamp(20px, 5vw, 32px) 0;
       opacity: 0;
       animation: fadeUp .6s .35s ease forwards;
     }
@@ -145,17 +154,17 @@
     /* ── Link cards ── */
     .links {
       width: 100%;
-      max-width: 420px;
+      max-width: 480px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .link-card {
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 16px 20px;
+      padding: clamp(14px, 3.5vw, 18px) clamp(16px, 4vw, 22px);
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -168,9 +177,12 @@
       transform: translateY(10px);
     }
 
-    .link-card:nth-child(1) { animation: fadeUp .5s .45s ease forwards; }
-    .link-card:nth-child(2) { animation: fadeUp .5s .55s ease forwards; }
-    .link-card:nth-child(3) { animation: fadeUp .5s .65s ease forwards; }
+    .link-card:nth-child(1) { animation: fadeUp .5s .40s ease forwards; }
+    .link-card:nth-child(2) { animation: fadeUp .5s .48s ease forwards; }
+    .link-card:nth-child(3) { animation: fadeUp .5s .56s ease forwards; }
+    .link-card:nth-child(4) { animation: fadeUp .5s .64s ease forwards; }
+    .link-card:nth-child(5) { animation: fadeUp .5s .72s ease forwards; }
+    .link-card:nth-child(6) { animation: fadeUp .5s .80s ease forwards; }
 
     .link-card::before {
       content: '';
@@ -192,8 +204,8 @@
 
     .icon-wrap {
       flex-shrink: 0;
-      width: 42px;
-      height: 42px;
+      width: clamp(38px, 10vw, 44px);
+      height: clamp(38px, 10vw, 44px);
       border-radius: 11px;
       background: linear-gradient(135deg, rgba(201,149,44,.12), rgba(201,149,44,.05));
       border: 1px solid rgba(201,149,44,.2);
@@ -203,8 +215,8 @@
     }
 
     .icon-wrap svg {
-      width: 20px;
-      height: 20px;
+      width: clamp(18px, 5vw, 22px);
+      height: clamp(18px, 5vw, 22px);
       fill: none;
       stroke: var(--accent);
       stroke-width: 1.8;
@@ -212,20 +224,29 @@
       stroke-linejoin: round;
     }
 
-    .link-text { flex: 1; }
+    /* Override fill for social icons that need it */
+    .icon-wrap svg.filled {
+      fill: var(--accent);
+      stroke: none;
+    }
+
+    .link-text { flex: 1; min-width: 0; }
 
     .link-label {
-      font-size: 15px;
+      font-size: clamp(14px, 3.8vw, 16px);
       font-weight: 700;
       display: block;
       direction: rtl;
     }
 
     .link-sub {
-      font-size: 12px;
+      font-size: clamp(11px, 2.6vw, 12px);
       color: var(--muted);
       direction: ltr;
       font-family: 'Space Mono', monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .arrow {
@@ -240,28 +261,91 @@
       transform: translateX(-4px);
     }
 
+    /* ── Social row (compact icons) ── */
+    .socials-section {
+      margin-top: clamp(16px, 4vw, 24px);
+      opacity: 0;
+      animation: fadeUp .5s .88s ease forwards;
+      text-align: center;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .socials-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 12px;
+    }
+
+    .socials-row {
+      display: flex;
+      justify-content: center;
+      gap: clamp(10px, 3vw, 16px);
+      flex-wrap: wrap;
+    }
+
+    .social-icon {
+      width: clamp(46px, 12vw, 52px);
+      height: clamp(46px, 12vw, 52px);
+      border-radius: 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: border-color .25s, transform .2s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,149,44,.08), transparent 60%);
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .social-icon:hover {
+      border-color: rgba(201,149,44,.5);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(201,149,44,.12);
+    }
+
+    .social-icon:hover::before { opacity: 1; }
+    .social-icon:active { transform: scale(.95); }
+
+    .social-icon svg {
+      width: clamp(20px, 5.5vw, 24px);
+      height: clamp(20px, 5.5vw, 24px);
+      fill: var(--accent);
+    }
+
     /* ── Footer ── */
     .footer {
-      margin-top: 44px;
-      font-size: 11px;
+      margin-top: clamp(24px, 6vw, 40px);
+      padding-bottom: 8px;
+      font-size: clamp(10px, 2.5vw, 11px);
       color: var(--muted);
       font-family: 'Space Mono', monospace;
       letter-spacing: .06em;
       text-align: center;
       opacity: 0;
-      animation: fadeUp .6s .85s ease forwards;
+      animation: fadeUp .6s .95s ease forwards;
     }
 
-    .footer span {
-      color: var(--accent-dim);
-    }
+    .footer span { color: var(--accent-dim); }
 
     /* ── Animations ── */
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* ── Subtle shimmer on logo ── */
     @keyframes shimmer {
       0%   { opacity: 0; transform: translateX(-100%) rotate(25deg); }
       50%  { opacity: 1; }
@@ -288,10 +372,18 @@
       pointer-events: none;
     }
 
-    /* ── Mobile ── */
-    @media (max-width: 480px) {
-      .page { padding: 40px 18px; }
-      .logo-img { width: 130px; }
+    /* ── Responsive: tighten on very small screens ── */
+    @media (max-width: 380px) {
+      .page { padding: 8vw 5vw 6vw; }
+      .links { gap: 8px; }
+      .socials-row { gap: 8px; }
+    }
+
+    /* ── Desktop: constrain width, add breathing room ── */
+    @media (min-width: 768px) {
+      .page {
+        padding: 60px 32px;
+      }
     }
   </style>
 </head>
@@ -315,6 +407,7 @@
     <!-- Links -->
     <nav class="links">
 
+      <!-- Store -->
       <a href="https://mujassam3d.sa" target="_blank" rel="noopener" class="link-card">
         <div class="icon-wrap">
           <svg viewBox="0 0 24 24">
@@ -330,7 +423,57 @@
         <span class="arrow">←</span>
       </a>
 
+      <!-- WhatsApp -->
+      <a href="https://wa.me/966XXXXXXXXX" target="_blank" rel="noopener" class="link-card">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" class="filled">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.008a9.87 9.87 0 0 1-5.032-1.378l-.36-.214-3.742.982.999-3.648-.235-.374A9.86 9.86 0 0 1 2.16 12.04C2.16 6.58 6.58 2.16 12.05 2.16c2.66 0 5.16 1.036 7.04 2.919a9.9 9.9 0 0 1 2.91 7.043c-.003 5.46-4.423 9.88-9.88 9.88l-.07-.001zM20.52 3.449C18.24 1.226 15.24 0 12.05 0 5.463 0 .103 5.36.1 11.95a11.9 11.9 0 0 0 1.598 5.975L0 24l6.335-1.652A11.93 11.93 0 0 0 12.042 24h.01c6.585 0 11.946-5.36 11.949-11.95a11.87 11.87 0 0 0-3.48-8.601z"/>
+          </svg>
+        </div>
+        <div class="link-text">
+          <span class="link-label">واتساب</span>
+          <span class="link-sub">WhatsApp</span>
+        </div>
+        <span class="arrow">←</span>
+      </a>
+
     </nav>
+
+    <!-- Social Icons Row -->
+    <div class="socials-section">
+      <div class="socials-label">تابعنا</div>
+      <div class="socials-row">
+
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@mujassam3d" target="_blank" rel="noopener" class="social-icon" aria-label="TikTok">
+          <svg viewBox="0 0 24 24">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.87a8.28 8.28 0 0 0 4.76 1.5V6.92a4.84 4.84 0 0 1-1-.23z"/>
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/mujassam3d" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+          </svg>
+        </a>
+
+        <!-- Snapchat -->
+        <a href="https://www.snapchat.com/add/mujassam3d" target="_blank" rel="noopener" class="social-icon" aria-label="Snapchat">
+          <svg viewBox="0 0 24 24">
+            <path d="M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12.922-.214.12-.042.234-.07.343-.07.26 0 .478.113.584.29.108.18.126.413.042.64-.122.332-.373.587-.727.752-.09.042-.21.088-.345.14-.394.148-.93.35-1.09.645-.06.12-.075.226-.04.327.18.6.791 1.605 1.495 2.2.352.3.727.545 1.095.72.21.1.39.21.525.345.24.24.36.555.33.87-.03.39-.27.72-.63.93-.51.285-1.14.42-1.875.495-.105.015-.18.045-.24.12-.07.095-.095.24-.15.42l-.02.075c-.06.21-.18.435-.51.435-.075 0-.165-.015-.27-.03-.18-.03-.39-.075-.63-.075-.21 0-.42.015-.615.06-.375.09-.72.315-1.095.555-.48.3-1.02.63-1.755.63h-.03c-.735 0-1.29-.33-1.77-.63-.375-.24-.72-.465-1.095-.555-.18-.04-.39-.06-.615-.06-.24 0-.45.045-.63.075-.105.015-.195.03-.27.03-.33 0-.45-.225-.51-.435l-.02-.075c-.045-.18-.075-.33-.15-.42-.06-.075-.135-.105-.24-.12-.735-.075-1.365-.21-1.875-.495-.36-.21-.6-.54-.63-.93-.03-.315.09-.63.33-.87.135-.135.315-.24.525-.345.375-.18.75-.42 1.095-.72.704-.595 1.313-1.6 1.495-2.2.04-.105.025-.21-.04-.33-.16-.295-.696-.495-1.09-.645-.135-.05-.255-.1-.345-.14-.36-.165-.6-.42-.72-.75-.09-.24-.075-.465.03-.645.105-.18.315-.29.58-.29.105 0 .225.03.345.07.27.095.62.21.915.21.195 0 .33-.045.41-.09l-.01-.075c-.105-1.62-.225-3.645.3-4.845C7.86 1.07 11.216.793 12.206.793z"/>
+          </svg>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/mujassam3d" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+          <svg viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+
+      </div>
+    </div>
 
     <footer class="footer">مجسم <span>·</span> 3D PRINT <span>·</span> KSA</footer>
 
